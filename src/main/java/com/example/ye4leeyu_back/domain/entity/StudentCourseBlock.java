@@ -15,5 +15,5 @@ public class StudentCourseBlock extends BaseEntity {
 
     @ManyToOne
     @JoinColumn(name = "courseBlockId")
-private CourseBlock courseBlock;
+    private CourseBlock courseBlock;
 }
