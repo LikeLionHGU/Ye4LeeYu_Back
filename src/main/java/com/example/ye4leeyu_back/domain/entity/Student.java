@@ -1,11 +1,15 @@
 package com.example.ye4leeyu_back.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Student extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,6 +27,12 @@ public class Student extends BaseEntity {
     private int disabilityLevel;
     private int level;
     private int finishedCourseCount;
-    private int contactNumber;
-    private int familyNumber;
+    private String contactNumber;
+    private String familyNumber;
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<StudentLikeCourse> studentLikeCourseList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<StudentCourseBlock> studentCourseBlockList = new ArrayList<>();
 }

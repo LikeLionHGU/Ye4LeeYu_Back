@@ -24,6 +24,6 @@ public class StudentDto {
     private int disabilityLevel;
     private int level;
     private int finishedCourseCount;
-    private int contactNumber;
-    private int familyNumber;
+    private String contactNumber;
+    private String familyNumber;
 }

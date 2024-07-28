@@ -1,11 +1,15 @@
 package com.example.ye4leeyu_back.domain.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Getter
+@Setter
 public class Teacher extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,5 +25,9 @@ public class Teacher extends BaseEntity {
     private String role;
     private int score;
     private String career;
-    private int contactNumber;
+    private String contactNumber;
+
+    @OneToMany
+    @JoinColumn(name = "teacherId")
+    private List<Course> courseList = new ArrayList<>();
 }

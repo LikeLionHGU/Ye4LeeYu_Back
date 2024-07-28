@@ -1,23 +1,20 @@
 package com.example.ye4leeyu_back.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class StudentCourseBlock extends BaseEntity {
+public class PossibleDisabilityType {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private boolean isCompleted;
+    private String disabilityType;
 
     @ManyToOne
-    @JoinColumn(name = "studentId")
-    private Student student;
-
-    @ManyToOne
-    @JoinColumn(name = "courseBlockId")
-    private CourseBlock courseBlock;
+    @JoinColumn(name = "courseId")
+    private Course course;
 }
