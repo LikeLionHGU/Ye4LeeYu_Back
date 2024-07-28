@@ -1,12 +1,14 @@
 package com.example.ye4leeyu_back.domain.entity;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class StudentCourseBlock extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,4 +22,12 @@ public class StudentCourseBlock extends BaseEntity {
     @ManyToOne
     @JoinColumn(name = "courseBlockId")
     private CourseBlock courseBlock;
+
+    public static StudentCourseBlock from(Student student, CourseBlock courseBlock) {
+        return StudentCourseBlock.builder()
+                .isCompleted(true)
+                .student(student)
+                .courseBlock(courseBlock)
+                .build();
+    }
 }
