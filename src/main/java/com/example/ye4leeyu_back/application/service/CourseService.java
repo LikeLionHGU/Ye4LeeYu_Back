@@ -6,6 +6,9 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class CourseService {
@@ -31,5 +34,23 @@ public class CourseService {
         Course course = courseRepository.findById(courseId).orElseThrow(() -> new IllegalArgumentException("Course not found"));
         course.updateLikeCount(isLike);
         courseRepository.save(course);
+    }
+
+    public List<Course> getAdCourseByLocation(String location) {
+        return getCourseByLocation(location).stream().filter(Course::isAd).toList();
+    }
+
+    public List<Course> getHotCourseByLocation(String location) {
+        List<Course> courses = getCourseByLocation(location);
+        courses.sort(Comparator.comparing(Course::getLikeCount).reversed());
+        return courses;
+    }
+
+    public List<Course> getCourseByLocation(String location) {
+        List<Course> courses = courseRepository.findCourseByLocation(location);
+        if (courses.isEmpty()) {
+            throw new IllegalArgumentException("No course");
+        }
+        return courses;
     }
 }

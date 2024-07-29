@@ -23,6 +23,7 @@ public class Course extends BaseEntity {
     private String imageName;
     private boolean isGroup;
     private boolean isClose;
+    private boolean isAd;
     private int duration;
     private int likeCount;
 
