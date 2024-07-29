@@ -3,6 +3,7 @@ package com.example.ye4leeyu_back.presentation.controller;
 import com.example.ye4leeyu_back.application.usecase.CourseUseCase;
 import com.example.ye4leeyu_back.application.usecase.ManageCourseUseCase;
 import com.example.ye4leeyu_back.presentation.response.CourseDetailResponse;
+import com.example.ye4leeyu_back.presentation.response.LikeCountResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,11 @@ public class CourseController {
     @PostMapping("/course/detail")
     public void createStudentCourseBlock(@RequestParam Long courseBlockId){
         manageCourseUseCase.createCourse(courseBlockId);
+    }
+
+    @PostMapping("/course/like")
+    public ResponseEntity<LikeCountResponse> likeCourse(@RequestParam Long courseId) {
+        return ResponseEntity.ok(manageCourseUseCase.likeCourse(courseId));
     }
 
 }

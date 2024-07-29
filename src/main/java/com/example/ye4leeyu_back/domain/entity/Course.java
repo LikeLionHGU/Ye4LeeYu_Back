@@ -39,4 +39,10 @@ public class Course extends BaseEntity {
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL)
     private List<StudentLikeCourse> studentLikeCourseList = new ArrayList<>();
 
+    public void updateLikeCount(boolean isLike) {
+        if (isLike)
+            this.likeCount++;
+        else
+            this.likeCount--;
+    }
 }
