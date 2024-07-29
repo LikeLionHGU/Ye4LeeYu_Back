@@ -16,7 +16,7 @@ public class HistoryUseCase {
     private final Long memberId; // temporary member id
 
     public HistoryResponse getHistory() {
-        Student student = studentService.getstudent(memberId);
+        Student student = studentService.getStudent(memberId);
         int level = student.getLevel();
         int totalCompletedCourse = studentCourseBlockService.getTotalCompletedCourse(student);
 

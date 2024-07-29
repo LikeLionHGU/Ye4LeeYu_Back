@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-    public Student getstudent(Long memberId) {
+    public Student getStudent(Long memberId) {
         return studentRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
     }
 }
