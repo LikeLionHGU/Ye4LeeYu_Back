@@ -1,10 +1,13 @@
 package com.example.ye4leeyu_back.application.dto;
 
+import com.example.ye4leeyu_back.domain.entity.Coupon;
 import com.example.ye4leeyu_back.domain.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,6 +31,8 @@ public class StudentDto {
     private String contactNumber;
     private String familyNumber;
 
+    private List<CouponDto> couponList;
+
     public static StudentDto of(Student student) {
         return StudentDto.builder()
                 .id(student.getId())
@@ -46,6 +51,10 @@ public class StudentDto {
                 .finishedCourseCount(student.getFinishedCourseCount())
                 .contactNumber(student.getContactNumber())
                 .familyNumber(student.getFamilyNumber())
+                .couponList(student.getCouponList()
+                        .stream()
+                        .map(CouponDto::of)
+                        .toList())
                 .build();
     }
 

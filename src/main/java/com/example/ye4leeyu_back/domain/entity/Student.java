@@ -37,4 +37,7 @@ public class Student extends BaseEntity {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentCourseBlock> studentCourseBlockList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<Coupon> couponList = new ArrayList<>();
 }

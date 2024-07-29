@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -16,6 +18,7 @@ public class StudentInfoResponse {
     private int bornMonth;
     private int bornDay;
     private String contactNumber;
+    private List<CouponResponse> couponList;
 
     public static StudentInfoResponse of(StudentDto studentDto) {
         return StudentInfoResponse.builder()
@@ -24,6 +27,10 @@ public class StudentInfoResponse {
                 .bornMonth(studentDto.getBornMonth())
                 .bornDay(studentDto.getBornDay())
                 .contactNumber(studentDto.getContactNumber())
+                .couponList(studentDto.getCouponList()
+                        .stream()
+                        .map(CouponResponse::of)
+                        .toList())
                 .build();
     }
 
