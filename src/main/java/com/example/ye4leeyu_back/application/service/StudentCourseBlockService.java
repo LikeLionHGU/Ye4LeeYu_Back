@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class StudentCourseBlockService {
@@ -21,5 +23,13 @@ public class StudentCourseBlockService {
 
         StudentCourseBlock studentCourseBlock = StudentCourseBlock.from(student, courseBlock);
         studentCourseBlockRepository.save(studentCourseBlock);
+    }
+
+    public int getTotalCompletedCourse(Student student) {
+        List<StudentCourseBlock> studentCourseBlocks = studentCourseBlockRepository.findAllByStudent(student);
+
+        return (int) studentCourseBlocks.stream()
+                .filter(StudentCourseBlock::isCompleted)
+                .count();
     }
 }
