@@ -32,4 +32,10 @@ public class StudentCourseBlockService {
                 .filter(StudentCourseBlock::isCompleted)
                 .count();
     }
+
+    public List<StudentCourseBlock> getCourseByIsCompleted(Student student, boolean isCompleted) {
+        return studentCourseBlockRepository.findAllByStudent(student).stream()
+                .filter(studentCourseBlock -> studentCourseBlock.isCompleted() == isCompleted)
+                .toList();
+    }
 }

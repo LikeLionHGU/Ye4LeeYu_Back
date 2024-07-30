@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -26,5 +27,10 @@ public class MyPageController {
     @GetMapping("/mypage/like")
     public ResponseEntity<List<CourseResponse>> getLikeCourse() {
         return ResponseEntity.ok(historyUseCase.getLikeCourse());
+    }
+
+    @GetMapping("/mypage/course")
+    public ResponseEntity<List<CourseResponse>> getCourse(@RequestParam boolean isCompleted) {
+        return ResponseEntity.ok(historyUseCase.getCourse(isCompleted));
     }
 }
