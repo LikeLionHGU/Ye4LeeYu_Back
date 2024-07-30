@@ -1,14 +1,15 @@
 package com.example.ye4leeyu_back.presentation.controller;
 
+import com.example.ye4leeyu_back.application.dto.StudentDto;
 import com.example.ye4leeyu_back.application.usecase.HistoryUseCase;
+import com.example.ye4leeyu_back.application.usecase.ManageStudentInfoUseCase;
+import com.example.ye4leeyu_back.presentation.request.UpdateStudentInfoRequest;
 import com.example.ye4leeyu_back.presentation.response.CourseResponse;
 import com.example.ye4leeyu_back.presentation.response.HistoryResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -17,7 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyPageController {
     private final HistoryUseCase historyUseCase;
-
+    private final ManageStudentInfoUseCase manageStudentInfoUseCase;
 
     @GetMapping("/mypage/exp")
     public ResponseEntity<HistoryResponse> getHistory() {
@@ -32,5 +33,11 @@ public class MyPageController {
     @GetMapping("/mypage/course")
     public ResponseEntity<List<CourseResponse>> getCourse(@RequestParam boolean isCompleted) {
         return ResponseEntity.ok(historyUseCase.getCourse(isCompleted));
+    }
+
+    @PatchMapping("/mypage")
+    public ResponseEntity<Void> updateStudentInfo(@RequestBody UpdateStudentInfoRequest request){
+        manageStudentInfoUseCase.updateStudentInfo(StudentDto.from(request));
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

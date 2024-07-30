@@ -1,5 +1,6 @@
 package com.example.ye4leeyu_back.domain.entity;
 
+import com.example.ye4leeyu_back.application.dto.StudentDto;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,4 +41,13 @@ public class Student extends BaseEntity {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Coupon> couponList = new ArrayList<>();
+
+    public void updateStudentInfo(StudentDto from) {
+        this.nickname = from.getNickname();
+        this.description = from.getDescription();
+        this.disabilityType = from.getDisabilityType();
+        this.disabilityLevel = from.getDisabilityLevel();
+        this.contactNumber = from.getContactNumber();
+        this.familyNumber = from.getFamilyNumber();
+    }
 }
