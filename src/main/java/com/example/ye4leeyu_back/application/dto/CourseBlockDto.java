@@ -6,15 +6,15 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
 @Getter
 public class CourseBlockDto {
     private Long id;
-    private int heldYear;
-    private int heldMonth;
-    private int heldDay;
+    private LocalDate date;
     private int takenHour;
     private int takenMinute;
     private boolean isOpen;
@@ -24,9 +24,7 @@ public class CourseBlockDto {
     public static CourseBlockDto of(CourseBlock courseBlock) {
         return CourseBlockDto.builder()
                 .id(courseBlock.getId())
-                .heldYear(courseBlock.getHeldYear())
-                .heldMonth(courseBlock.getHeldMonth())
-                .heldDay(courseBlock.getHeldDay())
+                .date(courseBlock.getDate())
                 .takenHour(courseBlock.getTakenHour())
                 .takenMinute(courseBlock.getTakenMinute())
                 .isOpen(courseBlock.isOpen())

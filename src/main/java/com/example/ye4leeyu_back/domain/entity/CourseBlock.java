@@ -3,6 +3,7 @@ package com.example.ye4leeyu_back.domain.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,9 +17,7 @@ public class CourseBlock extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private int heldYear;
-    private int heldMonth;
-    private int heldDay;
+    private LocalDate date;
     private int takenHour;
     private int takenMinute;
     private boolean isOpen;
