@@ -11,8 +11,10 @@ import com.example.ye4leeyu_back.application.service.TeacherService;
 import com.example.ye4leeyu_back.domain.entity.Course;
 import com.example.ye4leeyu_back.presentation.response.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,8 +65,13 @@ public class CourseSearchAndLookUseCase {
                         courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
 
         return RecommendCourseResponse.of(adCourseResponseList, hotCourseResponseList);
+    }
 
-
+    public List<CourseResponse> searchCourse(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer price, Pageable pageable) {
+        return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, price, pageable).stream().map(course ->
+                CourseResponse.of(CourseDto.of(course),
+                        TeacherDto.of(teacherService.getTeacher(course.getTeacher().getId())),
+                        courseService.isCourseLiked(course.getId(), memberId))).toList();
     }
 
 
