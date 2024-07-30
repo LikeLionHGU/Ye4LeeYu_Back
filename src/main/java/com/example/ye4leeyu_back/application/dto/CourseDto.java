@@ -3,10 +3,7 @@ package com.example.ye4leeyu_back.application.dto;
 import com.example.ye4leeyu_back.domain.entity.Course;
 import com.example.ye4leeyu_back.domain.entity.CourseBlock;
 import com.example.ye4leeyu_back.domain.entity.PossibleDisabilityType;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +11,7 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 @Getter
+@Setter
 public class CourseDto {
     private Long id;
     private String title;

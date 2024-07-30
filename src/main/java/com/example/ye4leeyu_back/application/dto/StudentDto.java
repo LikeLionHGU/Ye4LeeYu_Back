@@ -1,9 +1,13 @@
 package com.example.ye4leeyu_back.application.dto;
 
+import com.example.ye4leeyu_back.domain.entity.Coupon;
+import com.example.ye4leeyu_back.domain.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,4 +30,34 @@ public class StudentDto {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
+
+    private List<CouponDto> couponList;
+
+    public static StudentDto of(Student student) {
+        return StudentDto.builder()
+                .id(student.getId())
+                .name(student.getName())
+                .bornYear(student.getBornYear())
+                .bornMonth(student.getBornMonth())
+                .bornDay(student.getBornDay())
+                .sex(student.isSex())
+                .nickname(student.getNickname())
+                .description(student.getDescription())
+                .imageName(student.getImageName())
+                .role(student.getRole())
+                .disabilityType(student.getDisabilityType())
+                .disabilityLevel(student.getDisabilityLevel())
+                .level(student.getLevel())
+                .finishedCourseCount(student.getFinishedCourseCount())
+                .contactNumber(student.getContactNumber())
+                .familyNumber(student.getFamilyNumber())
+                .couponList(student.getCouponList()
+                        .stream()
+                        .map(CouponDto::of)
+                        .toList())
+                .build();
+    }
+
 }
+
+

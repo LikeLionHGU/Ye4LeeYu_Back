@@ -20,14 +20,14 @@ public class ManageCourseUseCase {
     private final Long memberId; // temporary member id
 
     public void createCourse(Long courseBlockId) {
-        Student student = studentService.getstudent(memberId);
+        Student student = studentService.getStudent(memberId);
         CourseBlock courseBlock = courseBlockService.getCourseBlock(courseBlockId);
         studentCourseBlockService.createStudentCourseBlock(student, courseBlock);
     }
 
     public LikeCountResponse likeCourse(Long courseId) {
         Course course = courseService.getCourseAndCourseBlock(courseId);
-        Student student = studentService.getstudent(memberId);
+        Student student = studentService.getStudent(memberId);
         boolean isLike = studentLikeCourseService.likeCourse(course, student);
         courseService.updateLikeCount(courseId, isLike);
         int likeCount = courseService.getLikeCount(courseId);
