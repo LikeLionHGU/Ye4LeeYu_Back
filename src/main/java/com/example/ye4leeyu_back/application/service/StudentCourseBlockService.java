@@ -17,7 +17,7 @@ public class StudentCourseBlockService {
 
     @Transactional
     public void createStudentCourseBlock(Student student, CourseBlock courseBlock) {
-        if (studentCourseBlockRepository.existsByStudent(student)) {
+        if (studentCourseBlockRepository.existsByStudentAndCourseBlock(student, courseBlock)) {
             throw new IllegalArgumentException("Student already exists");
         }
 

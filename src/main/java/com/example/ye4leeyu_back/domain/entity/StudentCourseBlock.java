@@ -25,7 +25,7 @@ public class StudentCourseBlock extends BaseEntity {
 
     public static StudentCourseBlock from(Student student, CourseBlock courseBlock) {
         return StudentCourseBlock.builder()
-                .isCompleted(true)
+                .isCompleted(false)
                 .student(student)
                 .courseBlock(courseBlock)
                 .build();
