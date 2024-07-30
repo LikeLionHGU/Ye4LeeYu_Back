@@ -20,4 +20,11 @@ public class AuthController {
         manageStudentInfoUseCase.createStudent(profileImage, StudentDto.from(request));
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
+
+    @GetMapping("/auth/kakaoLogin")
+    public ResponseEntity<String> kakaoLogin(@RequestParam String code) {
+        String accessToken = manageStudentInfoUseCase.getKakaoAccessToken(code);
+        String kakaoId = manageStudentInfoUseCase.kakaoLogin(accessToken);
+        return ResponseEntity.ok(kakaoId);
+    }
 }

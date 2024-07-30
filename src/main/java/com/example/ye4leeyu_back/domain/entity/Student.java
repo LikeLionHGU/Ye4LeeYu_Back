@@ -33,6 +33,7 @@ public class Student extends BaseEntity {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
+    private String kakaoId;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentLikeCourse> studentLikeCourseList = new ArrayList<>();
@@ -58,6 +59,7 @@ public class Student extends BaseEntity {
                 .familyNumber(from.getFamilyNumber())
                 .role("Student")
                 .imageName(profileImage.getOriginalFilename())
+                .kakaoId(from.getKakaoId())
                 .build();
     }
 

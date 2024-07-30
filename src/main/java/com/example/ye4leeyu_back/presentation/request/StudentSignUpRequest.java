@@ -20,4 +20,5 @@ public class StudentSignUpRequest {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
+    private String kakaoId;
 }

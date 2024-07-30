@@ -25,8 +25,10 @@ public class StudentService {
     @Transactional
     public void createStudent(MultipartFile profileImage, StudentDto from) {
         Student student = Student.createStudent(profileImage, from);
-        // TODO: 이미지 저장 & 학생 중복 확인
-
+        if (studentRepository.existsByKakaoId(student.getKakaoId())) {
+            throw new IllegalArgumentException("KakaoId already exists");
+        }
+        // TODO: 이미지 저장
         studentRepository.save(student);
     }
 }
