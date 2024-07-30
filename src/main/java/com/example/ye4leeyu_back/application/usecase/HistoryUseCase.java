@@ -43,4 +43,15 @@ public class HistoryUseCase {
                         courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
 
     }
+
+    public List<CourseResponse> getCourse(boolean isCompleted) {
+        Student student = studentService.getStudent(memberId);
+
+        List<CourseDto> courseDtoList = studentCourseBlockService.getCourseByIsCompleted(student, isCompleted).stream()
+                .map(studentCourseBlock -> CourseDto.of(studentCourseBlock.getCourseBlock().getCourse())).toList();
+        return courseDtoList.stream().map(courseDto ->
+                CourseResponse.of(courseDto,
+                        TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
+                        courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
+    }
 }
