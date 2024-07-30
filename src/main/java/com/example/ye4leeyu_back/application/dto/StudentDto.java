@@ -2,6 +2,7 @@ package com.example.ye4leeyu_back.application.dto;
 
 import com.example.ye4leeyu_back.domain.entity.Coupon;
 import com.example.ye4leeyu_back.domain.entity.Student;
+import com.example.ye4leeyu_back.presentation.request.StudentSignUpRequest;
 import com.example.ye4leeyu_back.presentation.request.UpdateStudentInfoRequest;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -61,6 +62,22 @@ public class StudentDto {
 
     public static StudentDto from(UpdateStudentInfoRequest request) {
         return StudentDto.builder()
+                .nickname(request.getNickname())
+                .description(request.getDescription())
+                .disabilityType(request.getDisabilityType())
+                .disabilityLevel(request.getDisabilityLevel())
+                .contactNumber(request.getContactNumber())
+                .familyNumber(request.getFamilyNumber())
+                .build();
+    }
+
+    public static StudentDto from(StudentSignUpRequest request) {
+        return StudentDto.builder()
+                .name(request.getName())
+                .bornYear(request.getBornYear())
+                .bornMonth(request.getBornMonth())
+                .bornDay(request.getBornDay())
+                .sex(request.isSex())
                 .nickname(request.getNickname())
                 .description(request.getDescription())
                 .disabilityType(request.getDisabilityType())
