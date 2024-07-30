@@ -8,13 +8,13 @@ import com.example.ye4leeyu_back.application.service.CourseBlockService;
 import com.example.ye4leeyu_back.application.service.CourseService;
 import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.application.service.TeacherService;
-import com.example.ye4leeyu_back.presentation.response.CourseDetailResponse;
-import com.example.ye4leeyu_back.presentation.response.PurchaseInfoResponse;
-import com.example.ye4leeyu_back.presentation.response.StudentInfoResponse;
+import com.example.ye4leeyu_back.domain.entity.Course;
+import com.example.ye4leeyu_back.presentation.response.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -44,6 +44,27 @@ public class CourseSearchAndLookUseCase {
 
         boolean isLiked = courseService.isCourseLiked(courseId, memberId);
         return PurchaseInfoResponse.of(StudentInfoResponse.of(studentDto), CourseDetailResponse.of(courseDto, teacherDto, isLiked));
+    }
+
+    public RecommendCourseResponse getRecommendCourse(String location) {
+        // 광고 강좌 가져오기
+        List<CourseDto> adCourseDtoList = courseService.getAdCourseByLocation(location).stream().map(CourseDto::of).toList();
+        // 추천 강좌 가져오기
+        List<CourseDto> hotCourseDtoList = courseService.getHotCourseByLocation(location).stream().map(CourseDto::of).toList();
+
+        List<CourseResponse> adCourseResponseList = adCourseDtoList.stream().map(courseDto ->
+                CourseResponse.of(courseDto,
+                        TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
+                        courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
+
+        List<CourseResponse> hotCourseResponseList = hotCourseDtoList.stream().map(courseDto ->
+                CourseResponse.of(courseDto,
+                        TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
+                        courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
+
+        return RecommendCourseResponse.of(adCourseResponseList, hotCourseResponseList);
+
+
     }
 
 
