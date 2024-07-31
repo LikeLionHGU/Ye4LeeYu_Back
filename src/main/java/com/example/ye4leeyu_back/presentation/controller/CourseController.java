@@ -2,15 +2,18 @@ package com.example.ye4leeyu_back.presentation.controller;
 
 import com.example.ye4leeyu_back.application.usecase.CourseSearchAndLookUseCase;
 import com.example.ye4leeyu_back.application.usecase.ManageCourseUseCase;
-import com.example.ye4leeyu_back.presentation.response.CourseDetailResponse;
-import com.example.ye4leeyu_back.presentation.response.LikeCountResponse;
-import com.example.ye4leeyu_back.presentation.response.PurchaseInfoResponse;
-import com.example.ye4leeyu_back.presentation.response.RecommendCourseResponse;
+import com.example.ye4leeyu_back.presentation.request.PageRequest;
+import com.example.ye4leeyu_back.presentation.response.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+import java.util.List;
+
+@Log4j2
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
@@ -57,5 +60,17 @@ public class CourseController {
         // 회원의 위치를 가져오는 유즈 케이스 필요
         return ResponseEntity.ok(courseSearchAndLookUseCase.getRecommendCourse("서울"));
 
+    }
+
+    @GetMapping("/course")
+    public ResponseEntity<List<CourseResponse>> getCourseList(PageRequest pageRequest,
+                                                              @RequestParam(required = false) String searchWord,
+                                                              @RequestParam(required = false) String city,
+                                                              @RequestParam(required = false) List<String> district,
+                                                              @RequestParam(required = false) List<String> sportType,
+                                                              @RequestParam(required = false) List<String> disabilityType,
+                                                              @RequestParam(required = false) List<LocalDate> date,
+                                                              @RequestParam(required = false) Integer price) {
+        return ResponseEntity.ok(courseSearchAndLookUseCase.searchCourse(searchWord, city, district, sportType, disabilityType, date, price, pageRequest.of()));
     }
 }
