@@ -3,6 +3,7 @@ package com.example.ye4leeyu_back.domain.entity;
 import com.example.ye4leeyu_back.application.dto.StudentDto;
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,6 +33,7 @@ public class Student extends BaseEntity {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
+    private String kakaoId;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentLikeCourse> studentLikeCourseList = new ArrayList<>();
@@ -41,6 +43,25 @@ public class Student extends BaseEntity {
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Coupon> couponList = new ArrayList<>();
+
+    public static Student createStudent(MultipartFile profileImage, StudentDto from) {
+        return Student.builder()
+                .name(from.getName())
+                .bornYear(from.getBornYear())
+                .bornMonth(from.getBornMonth())
+                .bornDay(from.getBornDay())
+                .sex(from.isSex())
+                .nickname(from.getNickname())
+                .description(from.getDescription())
+                .disabilityType(from.getDisabilityType())
+                .disabilityLevel(from.getDisabilityLevel())
+                .contactNumber(from.getContactNumber())
+                .familyNumber(from.getFamilyNumber())
+                .role("Student")
+                .imageName(profileImage.getOriginalFilename())
+                .kakaoId(from.getKakaoId())
+                .build();
+    }
 
     public void updateStudentInfo(StudentDto from) {
         this.nickname = from.getNickname();
