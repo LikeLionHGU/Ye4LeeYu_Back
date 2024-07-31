@@ -5,6 +5,7 @@ import com.example.ye4leeyu_back.application.usecase.ManageCourseUseCase;
 import com.example.ye4leeyu_back.presentation.request.PageRequest;
 import com.example.ye4leeyu_back.presentation.response.*;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor

@@ -15,6 +15,7 @@ public class TeacherResponse {
     private String description;
     private String imageURL;
     private int score;
+    private int scorePersonCount;
     private String career;
     private String contactNumber;
 
@@ -26,6 +27,7 @@ public class TeacherResponse {
                 .description(teacher.getDescription())
                 .imageURL(teacher.getImageName())
                 .score(teacher.getScore())
+                .scorePersonCount(teacher.getScorePersonCount())
                 .career(teacher.getCareer())
                 .contactNumber(teacher.getContactNumber())
                 .build();

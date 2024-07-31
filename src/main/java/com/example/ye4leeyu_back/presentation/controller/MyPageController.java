@@ -7,12 +7,14 @@ import com.example.ye4leeyu_back.presentation.request.UpdateStudentInfoRequest;
 import com.example.ye4leeyu_back.presentation.response.CourseResponse;
 import com.example.ye4leeyu_back.presentation.response.HistoryResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Log4j2
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
