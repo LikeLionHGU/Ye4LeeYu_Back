@@ -14,22 +14,18 @@ public class ManageStudentInfoUseCase {
     private final StudentService studentService;
     private final AuthService authService;
 
-    private final Long memberId; // temporary member id
-
-    public void updateStudentInfo(StudentDto from) {
-        Student student = studentService.getStudent(memberId);
+    public void updateStudentInfo(String kakaoId, StudentDto from) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         studentService.updateStudentInfo(student, from);
     }
 
-    public void createStudent(MultipartFile profileImage, StudentDto from) {
-        studentService.createStudent(profileImage, from);
+    public String createStudent(MultipartFile profileImage, StudentDto from, String accessToken) {
+        String kakaoId = authService.getKakaoId(accessToken);
+        studentService.createStudent(profileImage, from, kakaoId);
+        return authService.createJwtToken(kakaoId);
     }
 
     public String getKakaoAccessToken(String code) {
         return authService.getKakaoAccessToken(code);
-    }
-
-    public String kakaoLogin(String accessToken) {
-        return authService.kakaoLogin(accessToken);
     }
 }

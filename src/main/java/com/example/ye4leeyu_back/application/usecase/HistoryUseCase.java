@@ -22,36 +22,34 @@ public class HistoryUseCase {
     private final CourseService courseService;
     private final TeacherService teacherService;
 
-    private final Long memberId; // temporary member id
-
-    public HistoryResponse getHistory() {
-        Student student = studentService.getStudent(memberId);
+    public HistoryResponse getHistory(String kakaoId) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         int level = student.getLevel();
         int totalCompletedCourse = studentCourseBlockService.getTotalCompletedCourse(student);
 
         return HistoryResponse.of(totalCompletedCourse, level);
     }
 
-    public List<CourseResponse> getLikeCourse() {
-        Student student = studentService.getStudent(memberId);
+    public List<CourseResponse> getLikeCourse(String kakaoId) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         List<CourseDto> likeCourseDtoList = student.getStudentLikeCourseList().stream()
                 .map(studentLikeCourse -> CourseDto.of(studentLikeCourse.getCourse())).toList();
 
         return likeCourseDtoList.stream().map(courseDto ->
                 CourseResponse.of(courseDto,
                         TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
-                        courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
+                        courseService.isCourseLiked(courseDto.getId(), student.getId()))).toList();
 
     }
 
-    public List<CourseResponse> getCourse(boolean isCompleted) {
-        Student student = studentService.getStudent(memberId);
+    public List<CourseResponse> getCourse(String kakaoId, boolean isCompleted) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
 
         List<CourseDto> courseDtoList = studentCourseBlockService.getCourseByIsCompleted(student, isCompleted).stream()
                 .map(studentCourseBlock -> CourseDto.of(studentCourseBlock.getCourseBlock().getCourse())).toList();
         return courseDtoList.stream().map(courseDto ->
                 CourseResponse.of(courseDto,
                         TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
-                        courseService.isCourseLiked(courseDto.getId(), memberId))).toList();
+                        courseService.isCourseLiked(courseDto.getId(), student.getId()))).toList();
     }
 }

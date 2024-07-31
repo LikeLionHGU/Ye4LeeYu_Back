@@ -32,7 +32,6 @@ public class StudentDto {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
-    private String kakaoId;
 
     private List<CouponDto> couponList;
 
@@ -85,7 +84,6 @@ public class StudentDto {
                 .disabilityLevel(request.getDisabilityLevel())
                 .contactNumber(request.getContactNumber())
                 .familyNumber(request.getFamilyNumber())
-                .kakaoId(request.getKakaoId())
                 .build();
     }
 }

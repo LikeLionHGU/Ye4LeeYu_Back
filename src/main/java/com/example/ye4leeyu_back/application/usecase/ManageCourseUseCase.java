@@ -17,17 +17,15 @@ public class ManageCourseUseCase {
     private final CourseService courseService;
     private final StudentLikeCourseService studentLikeCourseService;
 
-    private final Long memberId; // temporary member id
-
-    public void createCourse(Long courseBlockId) {
-        Student student = studentService.getStudent(memberId);
+    public void createCourse(String kakaoId, Long courseBlockId) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         CourseBlock courseBlock = courseBlockService.getCourseBlock(courseBlockId);
         studentCourseBlockService.createStudentCourseBlock(student, courseBlock);
     }
 
-    public LikeCountResponse likeCourse(Long courseId) {
+    public LikeCountResponse likeCourse(String kakaoId, Long courseId) {
         Course course = courseService.getCourseAndCourseBlock(courseId);
-        Student student = studentService.getStudent(memberId);
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         boolean isLike = studentLikeCourseService.likeCourse(course, student);
         courseService.updateLikeCount(courseId, isLike);
         int likeCount = courseService.getLikeCount(courseId);
