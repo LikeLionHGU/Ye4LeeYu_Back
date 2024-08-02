@@ -32,7 +32,9 @@ public class CourseSearchAndLookUseCase {
         CourseDto courseDto = CourseDto.of(courseService.getCourseAndCourseBlock(courseId));
         TeacherDto teacherDto = TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId()));
         boolean isLiked = courseService.isCourseLiked(courseId, memberId);
-        return CourseDetailResponse.of(courseDto, teacherDto, isLiked);
+
+        TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, memberId))).toList());
+        return CourseDetailResponse.of(courseDto, teacherResponse, isLiked);
     }
 
     public PurchaseInfoResponse getPurchaseInfo(Long courseId, Long courseBlockId) {
@@ -44,8 +46,10 @@ public class CourseSearchAndLookUseCase {
 
         TeacherDto teacherDto = TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId()));
 
+        TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, memberId))).toList());
+
         boolean isLiked = courseService.isCourseLiked(courseId, memberId);
-        return PurchaseInfoResponse.of(StudentInfoResponse.of(studentDto), CourseDetailResponse.of(courseDto, teacherDto, isLiked));
+        return PurchaseInfoResponse.of(StudentInfoResponse.of(studentDto), CourseDetailResponse.of(courseDto, teacherResponse, isLiked));
     }
 
     public RecommendCourseResponse getRecommendCourse(String location) {
