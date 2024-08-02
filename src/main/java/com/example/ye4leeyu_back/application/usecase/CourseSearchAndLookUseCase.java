@@ -31,7 +31,11 @@ public class CourseSearchAndLookUseCase {
         CourseDto courseDto = CourseDto.of(courseService.getCourseAndCourseBlock(courseId));
         TeacherDto teacherDto = TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId()));
         boolean isLiked = courseService.isCourseLiked(courseId, student.getId());
-        return CourseDetailResponse.of(courseDto, teacherDto, isLiked);
+
+        TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, student.getId()))).toList());
+        return CourseDetailResponse.of(courseDto, teacherResponse, isLiked);
+
+        return CourseDetailResponse.of(courseDto, teacherResponse, isLiked);
     }
 
     public PurchaseInfoResponse getPurchaseInfo(String kakaoId, Long courseId, Long courseBlockId) {
@@ -44,8 +48,10 @@ public class CourseSearchAndLookUseCase {
 
         TeacherDto teacherDto = TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId()));
 
+        TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, student.getId()))).toList());
+
         boolean isLiked = courseService.isCourseLiked(courseId, student.getId());
-        return PurchaseInfoResponse.of(StudentInfoResponse.of(studentDto), CourseDetailResponse.of(courseDto, teacherDto, isLiked));
+        return PurchaseInfoResponse.of(StudentInfoResponse.of(studentDto), CourseDetailResponse.of(courseDto, teacherResponse, isLiked));
     }
 
     public RecommendCourseResponse getRecommendCourse(String kakaoId, String location) {

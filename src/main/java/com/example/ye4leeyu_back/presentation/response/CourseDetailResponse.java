@@ -27,7 +27,7 @@ public class CourseDetailResponse {
     private TeacherResponse teacher;
     private List<CourseBlockResponse> courseBlock;
 
-    public static CourseDetailResponse of(CourseDto courseDto, TeacherDto teacherDto, boolean isLike) {
+    public static CourseDetailResponse of(CourseDto courseDto, TeacherResponse teacherResponse, boolean isLike) {
         return CourseDetailResponse.builder()
                 .imageURL(courseDto.getImageName())
                 .title(courseDto.getTitle())
@@ -44,7 +44,7 @@ public class CourseDetailResponse {
                 .isLike(isLike)
                 .location(courseDto.getLocation())
                 .duration(courseDto.getDuration())
-                .teacher(TeacherResponse.of(teacherDto))
+                .teacher(teacherResponse)
                 .courseBlock(courseDto.getCourseBlockList()
                         .stream()
                         .map(CourseBlockResponse::of)
