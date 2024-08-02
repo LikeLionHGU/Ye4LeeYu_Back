@@ -12,8 +12,9 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class StudentService {
     private final StudentRepository studentRepository;
-    public Student getStudent(Long memberId) {
-        return studentRepository.findById(memberId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
+
+    public Student getStudentByKaKaoId(String kakaoId) {
+        return studentRepository.findByKakaoId(kakaoId).orElseThrow(() -> new IllegalArgumentException("Student not found"));
     }
 
     @Transactional
@@ -23,10 +24,10 @@ public class StudentService {
     }
 
     @Transactional
-    public void createStudent(MultipartFile profileImage, StudentDto from) {
-        Student student = Student.createStudent(profileImage, from);
+    public void createStudent(MultipartFile profileImage, StudentDto from, String kakaoId) {
+        Student student = Student.createStudent(profileImage, from, kakaoId);
         if (studentRepository.existsByKakaoId(student.getKakaoId())) {
-            throw new IllegalArgumentException("KakaoId already exists");
+            return;
         }
         // TODO: 이미지 저장
         studentRepository.save(student);

@@ -44,7 +44,7 @@ public class Student extends BaseEntity {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Coupon> couponList = new ArrayList<>();
 
-    public static Student createStudent(MultipartFile profileImage, StudentDto from) {
+    public static Student createStudent(MultipartFile profileImage, StudentDto from, String kakaoId) {
         return Student.builder()
                 .name(from.getName())
                 .bornYear(from.getBornYear())
@@ -59,7 +59,7 @@ public class Student extends BaseEntity {
                 .familyNumber(from.getFamilyNumber())
                 .role("Student")
                 .imageName(profileImage.getOriginalFilename())
-                .kakaoId(from.getKakaoId())
+                .kakaoId(kakaoId)
                 .build();
     }
 

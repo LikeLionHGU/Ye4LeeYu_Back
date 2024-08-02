@@ -1,8 +1,10 @@
 package com.example.ye4leeyu_back.application.service;
 
+import com.example.ye4leeyu_back.config.JwtUtil;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,8 +18,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 
 @Service
+@RequiredArgsConstructor
 public class AuthService {
     private final RestTemplate restTemplate = new RestTemplate();
+    private final JwtUtil jwtUtil;
 
     @Value("${spring.oauth2.kakao.client-id}")
     private String kakaoClientId;
@@ -25,6 +29,7 @@ public class AuthService {
     private String kakaoRedirectUri;
     @Value("${spring.oauth2.kakao.resource-uri}")
     String kakaoResourceUri;
+
     public String getKakaoAccessToken (String code) {
         String access_Token = "";
         String refresh_Token = "";
@@ -75,7 +80,14 @@ public class AuthService {
     public String kakaoLogin(String accessToken) {
         JsonNode kakaoUserInfo = getUserResource(accessToken, kakaoResourceUri);
         System.out.println("kakaoUserInfo = " + kakaoUserInfo);
-        return kakaoUserInfo.get("id").asText();
+        String kakaoId = kakaoUserInfo.get("id").asText();
+        kakaoJwtToken(kakaoId);
+        System.out.println("token = " + kakaoJwtToken(kakaoId));
+        return kakaoId;
+    }
+
+    public String kakaoJwtToken(String kakaoId) {
+        return jwtUtil.createAccessToken(kakaoId, 1000 * 60 * 60 * 24 * 7);
     }
 
     private JsonNode getUserResource(String accessToken, String resourceUri) {
@@ -85,5 +97,14 @@ public class AuthService {
 
         ResponseEntity<JsonNode> responseEntity = restTemplate.exchange(resourceUri, HttpMethod.GET, entity, JsonNode.class);
         return responseEntity.getBody();
+    }
+
+    public String getKakaoId(String accessToken) {
+        JsonNode kakaoUserInfo = getUserResource(accessToken, kakaoResourceUri);
+        return kakaoUserInfo.get("id").asText();
+    }
+
+    public String createJwtToken(String kakaoId) {
+        return jwtUtil.createAccessToken(kakaoId, 1000 * 60 * 60 * 24 * 7);
     }
 }
