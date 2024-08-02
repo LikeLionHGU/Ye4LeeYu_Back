@@ -22,7 +22,6 @@ public class StudentSignUpRequest {
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
-    private String code;
     private String address;
     private String detailAddress;
 }

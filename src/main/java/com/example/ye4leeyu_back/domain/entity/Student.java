@@ -3,7 +3,6 @@ package com.example.ye4leeyu_back.domain.entity;
 import com.example.ye4leeyu_back.application.dto.StudentDto;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +24,6 @@ public class Student extends BaseEntity {
     private boolean sex;
     private String nickname;
     private String description;
-    private String imageName;
     private String role;
     private int level;
     private int finishedCourseCount;
@@ -47,7 +45,7 @@ public class Student extends BaseEntity {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentDisabilityInfo> studentDisabilityInfoList = new ArrayList<>();
 
-    public static Student createStudent(MultipartFile profileImage, StudentDto from, String kakaoId) {
+    public static Student createStudent(StudentDto from, String kakaoId) {
         return Student.builder()
                 .name(from.getName())
                 .bornYear(from.getBornYear())
@@ -59,7 +57,6 @@ public class Student extends BaseEntity {
                 .contactNumber(from.getContactNumber())
                 .familyNumber(from.getFamilyNumber())
                 .role("Student")
-                .imageName(profileImage.getOriginalFilename())
                 .kakaoId(kakaoId)
                 .address(from.getAddress())
                 .detailAddress(from.getDetailAddress())

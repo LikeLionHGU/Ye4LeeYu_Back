@@ -24,7 +24,6 @@ public class StudentDto {
     private boolean sex;
     private String nickname;
     private String description;
-    private String imageName;
     private String role;
     private List<String> disabilityTypeList;
     private List<Integer> disabilityLevelList;
@@ -47,7 +46,6 @@ public class StudentDto {
                 .sex(student.isSex())
                 .nickname(student.getNickname())
                 .description(student.getDescription())
-                .imageName(student.getImageName())
                 .role(student.getRole())
                 .disabilityTypeList(student.getStudentDisabilityInfoList()
                         .stream()

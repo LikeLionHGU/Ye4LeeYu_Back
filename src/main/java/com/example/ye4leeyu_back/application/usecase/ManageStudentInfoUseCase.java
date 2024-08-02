@@ -22,9 +22,9 @@ public class ManageStudentInfoUseCase {
         studentDisabilityInfoService.updateStudentDisabilityInfo(student, from.getDisabilityTypeList(), from.getDisabilityLevelList());
     }
 
-    public String createStudent(MultipartFile profileImage, StudentDto from, String accessToken) {
+    public String createStudent(StudentDto from, String accessToken) {
         String kakaoId = authService.getKakaoId(accessToken);
-        studentService.createStudent(profileImage, from, kakaoId);
+        studentService.createStudent(from, kakaoId);
 
         Student student = studentService.getStudentByKaKaoId(kakaoId);
         studentDisabilityInfoService.createStudentDisabilityInfo(student, from.getDisabilityTypeList(), from.getDisabilityLevelList());
