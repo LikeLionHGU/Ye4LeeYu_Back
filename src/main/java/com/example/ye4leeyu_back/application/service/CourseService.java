@@ -53,7 +53,7 @@ public class CourseService {
     }
 
     public List<Course> getCourseByLocation(String location) {
-        List<Course> courses = courseRepository.findCourseByLocation(location);
+        List<Course> courses = courseRepository.findCourseByLocationContaining(location);
         if (courses.isEmpty()) {
             throw new IllegalArgumentException("No course");
         }

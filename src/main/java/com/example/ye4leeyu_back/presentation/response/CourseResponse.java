@@ -24,6 +24,8 @@ public class CourseResponse {
     private int duration;
     private String imageURL;
     private String teacherName;
+    private float score;
+    private int reviewCount;
 
     public static CourseResponse of(CourseDto courseDto, TeacherDto teacherDto, boolean isLike) {
         return CourseResponse.builder()
@@ -42,6 +44,8 @@ public class CourseResponse {
                 .duration(courseDto.getDuration())
                 .imageURL(courseDto.getImageName())
                 .teacherName(teacherDto.getName())
+                .score(teacherDto.getScore())
+                .reviewCount(teacherDto.getReviewCount())
                 .build();
 
     }

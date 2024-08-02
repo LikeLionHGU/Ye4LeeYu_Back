@@ -18,7 +18,7 @@ public interface CourseRepository extends JpaRepository<Course, Long>, CourseRep
     @Query("SELECT c FROM Course c WHERE c.isAd = true")
     List<Course> findAdCourse();
 
-    List<Course> findCourseByLocation(String location);
+    List<Course> findCourseByLocationContaining(String location);
 
     Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer price, Pageable pageable);
 
