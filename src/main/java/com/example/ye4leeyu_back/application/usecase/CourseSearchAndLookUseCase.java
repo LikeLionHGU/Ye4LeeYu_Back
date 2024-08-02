@@ -34,8 +34,6 @@ public class CourseSearchAndLookUseCase {
 
         TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, student.getId()))).toList());
         return CourseDetailResponse.of(courseDto, teacherResponse, isLiked);
-
-        return CourseDetailResponse.of(courseDto, teacherResponse, isLiked);
     }
 
     public PurchaseInfoResponse getPurchaseInfo(String kakaoId, Long courseId, Long courseBlockId) {
@@ -55,7 +53,7 @@ public class CourseSearchAndLookUseCase {
     }
 
     public RecommendCourseResponse getRecommendCourse(String kakaoId, String location) {
-        Student student = studentService.getStudentByKaKaoId("kakaoId");
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         // 광고 강좌 가져오기
         List<CourseDto> adCourseDtoList = courseService.getAdCourseByLocation(location).stream().map(CourseDto::of).toList();
         // 추천 강좌 가져오기
