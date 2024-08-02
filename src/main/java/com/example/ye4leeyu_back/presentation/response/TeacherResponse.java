@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -18,8 +20,9 @@ public class TeacherResponse {
     private int scorePersonCount;
     private String career;
     private String contactNumber;
+    private List<CourseResponse> courseList;
 
-    public static TeacherResponse of(TeacherDto teacher) {
+    public static TeacherResponse of(TeacherDto teacher, List<CourseResponse> courseList) {
         return TeacherResponse.builder()
                 .id(teacher.getId())
                 .name(teacher.getName())
@@ -30,6 +33,7 @@ public class TeacherResponse {
                 .scorePersonCount(teacher.getScorePersonCount())
                 .career(teacher.getCareer())
                 .contactNumber(teacher.getContactNumber())
+                .courseList(courseList)
                 .build();
     }
 }
