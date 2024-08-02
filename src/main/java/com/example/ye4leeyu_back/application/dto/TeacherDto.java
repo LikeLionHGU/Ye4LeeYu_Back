@@ -23,8 +23,8 @@ public class TeacherDto {
     private String description;
     private String imageName;
     private String role;
-    private int score;
-    private int scorePersonCount;
+    private float score;
+    private int reviewCount;
     private String career;
     private String contactNumber;
 
@@ -43,7 +43,7 @@ public class TeacherDto {
                 .imageName(teacher.getImageName())
                 .role(teacher.getRole())
                 .score(teacher.getScore())
-                .scorePersonCount(teacher.getScorePersonCount())
+                .reviewCount(teacher.getReviewCount())
                 .career(teacher.getCareer())
                 .contactNumber(teacher.getContactNumber())
                 .courseList(teacher.getCourseList()
