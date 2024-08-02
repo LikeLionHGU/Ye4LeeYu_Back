@@ -1,6 +1,5 @@
 package com.example.ye4leeyu_back.config;
 
-import com.example.ye4leeyu_back.application.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +17,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final CustomUserDetailsService customUserDetailsService;
-    private final StudentService studentService;
     private final JwtUtil jwtUtil;
 
     @Value("${jwt.secret}")
@@ -37,7 +35,7 @@ public class SecurityConfig {
                         SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
-                                "api/auth/signup", "/error"
+                                "api/auth/signup", "api/auth/login", "/error"
                         )
                         .permitAll()
                 )

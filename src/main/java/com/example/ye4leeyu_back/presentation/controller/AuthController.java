@@ -23,4 +23,10 @@ public class AuthController {
         String JwtToken = manageStudentInfoUseCase.createStudent(profileImage, StudentDto.from(request), accessToken);
         return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
     }
+
+    @GetMapping("/auth/login")
+    public ResponseEntity<LoginTokenResponse> login(@RequestParam String code) {
+        String JwtToken = manageStudentInfoUseCase.getJwtToken(code);
+        return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
+    }
 }

@@ -27,13 +27,13 @@ public class Student extends BaseEntity {
     private String description;
     private String imageName;
     private String role;
-    private String disabilityType;
-    private int disabilityLevel;
     private int level;
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
     private String kakaoId;
+    private String address;
+    private String detailAddress;
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<StudentLikeCourse> studentLikeCourseList = new ArrayList<>();
@@ -44,6 +44,9 @@ public class Student extends BaseEntity {
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
     private List<Coupon> couponList = new ArrayList<>();
 
+    @OneToMany(mappedBy = "student", cascade = CascadeType.ALL)
+    private List<StudentDisabilityInfo> studentDisabilityInfoList = new ArrayList<>();
+
     public static Student createStudent(MultipartFile profileImage, StudentDto from, String kakaoId) {
         return Student.builder()
                 .name(from.getName())
@@ -53,22 +56,22 @@ public class Student extends BaseEntity {
                 .sex(from.isSex())
                 .nickname(from.getNickname())
                 .description(from.getDescription())
-                .disabilityType(from.getDisabilityType())
-                .disabilityLevel(from.getDisabilityLevel())
                 .contactNumber(from.getContactNumber())
                 .familyNumber(from.getFamilyNumber())
                 .role("Student")
                 .imageName(profileImage.getOriginalFilename())
                 .kakaoId(kakaoId)
+                .address(from.getAddress())
+                .detailAddress(from.getDetailAddress())
                 .build();
     }
 
     public void updateStudentInfo(StudentDto from) {
         this.nickname = from.getNickname();
         this.description = from.getDescription();
-        this.disabilityType = from.getDisabilityType();
-        this.disabilityLevel = from.getDisabilityLevel();
         this.contactNumber = from.getContactNumber();
         this.familyNumber = from.getFamilyNumber();
+        this.address = from.getAddress();
+        this.detailAddress = from.getDetailAddress();
     }
 }

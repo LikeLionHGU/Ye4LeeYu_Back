@@ -1,7 +1,7 @@
 package com.example.ye4leeyu_back.application.dto;
 
-import com.example.ye4leeyu_back.domain.entity.Coupon;
 import com.example.ye4leeyu_back.domain.entity.Student;
+import com.example.ye4leeyu_back.domain.entity.StudentDisabilityInfo;
 import com.example.ye4leeyu_back.presentation.request.StudentSignUpRequest;
 import com.example.ye4leeyu_back.presentation.request.UpdateStudentInfoRequest;
 import lombok.AllArgsConstructor;
@@ -26,12 +26,14 @@ public class StudentDto {
     private String description;
     private String imageName;
     private String role;
-    private String disabilityType;
-    private int disabilityLevel;
+    private List<String> disabilityTypeList;
+    private List<Integer> disabilityLevelList;
     private int level;
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
+    private String address;
+    private String detailAddress;
 
     private List<CouponDto> couponList;
 
@@ -47,8 +49,13 @@ public class StudentDto {
                 .description(student.getDescription())
                 .imageName(student.getImageName())
                 .role(student.getRole())
-                .disabilityType(student.getDisabilityType())
-                .disabilityLevel(student.getDisabilityLevel())
+                .disabilityTypeList(student.getStudentDisabilityInfoList()
+                        .stream()
+                        .map(StudentDisabilityInfo::getDisabilityType)
+                        .toList())
+                .disabilityLevelList(student.getStudentDisabilityInfoList().stream()
+                        .map(StudentDisabilityInfo::getDisabilityLevel)
+                        .toList())
                 .level(student.getLevel())
                 .finishedCourseCount(student.getFinishedCourseCount())
                 .contactNumber(student.getContactNumber())
@@ -57,6 +64,8 @@ public class StudentDto {
                         .stream()
                         .map(CouponDto::of)
                         .toList())
+                .address(student.getAddress())
+                .detailAddress(student.getDetailAddress())
                 .build();
     }
 
@@ -64,10 +73,12 @@ public class StudentDto {
         return StudentDto.builder()
                 .nickname(request.getNickname())
                 .description(request.getDescription())
-                .disabilityType(request.getDisabilityType())
-                .disabilityLevel(request.getDisabilityLevel())
+                .disabilityTypeList(request.getDisabilityTypeList())
+                .disabilityLevelList(request.getDisabilityLevelList())
                 .contactNumber(request.getContactNumber())
                 .familyNumber(request.getFamilyNumber())
+                .address(request.getAddress())
+                .detailAddress(request.getDetailAddress())
                 .build();
     }
 
@@ -80,10 +91,12 @@ public class StudentDto {
                 .sex(request.isSex())
                 .nickname(request.getNickname())
                 .description(request.getDescription())
-                .disabilityType(request.getDisabilityType())
-                .disabilityLevel(request.getDisabilityLevel())
+                .disabilityTypeList(request.getDisabilityTypeList())
+                .disabilityLevelList(request.getDisabilityLevelList())
                 .contactNumber(request.getContactNumber())
                 .familyNumber(request.getFamilyNumber())
+                .address(request.getAddress())
+                .detailAddress(request.getDetailAddress())
                 .build();
     }
 }
