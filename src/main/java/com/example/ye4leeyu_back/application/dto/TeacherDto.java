@@ -25,6 +25,7 @@ public class TeacherDto {
     private String role;
     private float score;
     private int reviewCount;
+    private int studentCount;
     private String career;
     private String contactNumber;
 
@@ -44,6 +45,7 @@ public class TeacherDto {
                 .role(teacher.getRole())
                 .score(teacher.getScore())
                 .reviewCount(teacher.getReviewCount())
+                .studentCount(teacher.getStudentCount())
                 .career(teacher.getCareer())
                 .contactNumber(teacher.getContactNumber())
                 .courseList(teacher.getCourseList()

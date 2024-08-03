@@ -18,6 +18,7 @@ public class TeacherResponse {
     private String imageURL;
     private float score;
     private int reviewCount;
+    private int studentCount;
     private String career;
     private String contactNumber;
     private List<CourseResponse> courseList;
@@ -31,6 +32,7 @@ public class TeacherResponse {
                 .imageURL(teacher.getImageName())
                 .score(teacher.getScore())
                 .reviewCount(teacher.getReviewCount())
+                .studentCount(teacher.getStudentCount())
                 .career(teacher.getCareer())
                 .contactNumber(teacher.getContactNumber())
                 .courseList(courseList)

@@ -25,6 +25,7 @@ public class Teacher extends BaseEntity {
     private String role;
     private float score;
     private int reviewCount;
+    private int studentCount;
     private String career;
     private String contactNumber;
 
