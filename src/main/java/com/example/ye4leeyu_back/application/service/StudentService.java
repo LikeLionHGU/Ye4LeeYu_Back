@@ -6,7 +6,6 @@ import com.example.ye4leeyu_back.domain.repository.StudentRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -24,12 +23,11 @@ public class StudentService {
     }
 
     @Transactional
-    public void createStudent(MultipartFile profileImage, StudentDto from, String kakaoId) {
-        Student student = Student.createStudent(profileImage, from, kakaoId);
+    public void createStudent(StudentDto from, String kakaoId) {
+        Student student = Student.createStudent(from, kakaoId);
         if (studentRepository.existsByKakaoId(student.getKakaoId())) {
             return;
         }
-        // TODO: 이미지 저장
         studentRepository.save(student);
     }
 }

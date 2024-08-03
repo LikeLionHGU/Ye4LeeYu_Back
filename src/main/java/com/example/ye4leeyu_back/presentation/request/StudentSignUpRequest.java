@@ -4,6 +4,8 @@ import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @NoArgsConstructor
 @Data
@@ -15,10 +17,11 @@ public class StudentSignUpRequest {
     private boolean sex;
     private String nickname;
     private String description;
-    private String disabilityType;
-    private int disabilityLevel;
+    private List<String> disabilityTypeList;
+    private List<Integer> disabilityLevelList;
     private int finishedCourseCount;
     private String contactNumber;
     private String familyNumber;
-    private String code;
+    private String address;
+    private String detailAddress;
 }

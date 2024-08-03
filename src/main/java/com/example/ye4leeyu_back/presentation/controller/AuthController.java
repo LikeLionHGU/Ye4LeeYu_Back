@@ -8,7 +8,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 @Log4j2
 @RestController
@@ -18,9 +17,15 @@ public class AuthController {
     private final ManageStudentInfoUseCase manageStudentInfoUseCase;
 
     @PostMapping("/auth/signup")
-    public ResponseEntity<LoginTokenResponse> signUp(@RequestParam(value="profileImage", required = false) MultipartFile profileImage, @ModelAttribute StudentSignUpRequest request) {
-        String accessToken = manageStudentInfoUseCase.getKakaoAccessToken(request.getCode());
-        String JwtToken = manageStudentInfoUseCase.createStudent(profileImage, StudentDto.from(request), accessToken);
+    public ResponseEntity<LoginTokenResponse> signUp(@RequestBody StudentSignUpRequest request, @RequestParam String code) {
+        String accessToken = manageStudentInfoUseCase.getKakaoAccessToken(code);
+        String JwtToken = manageStudentInfoUseCase.createStudent(StudentDto.from(request), accessToken);
+        return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
+    }
+
+    @GetMapping("/auth/login")
+    public ResponseEntity<LoginTokenResponse> login(@RequestParam String code) {
+        String JwtToken = manageStudentInfoUseCase.getJwtToken(code);
         return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
     }
 }

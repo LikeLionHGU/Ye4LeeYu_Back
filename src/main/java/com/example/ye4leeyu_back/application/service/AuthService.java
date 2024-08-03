@@ -77,19 +77,6 @@ public class AuthService {
         return access_Token;
     }
 
-    public String kakaoLogin(String accessToken) {
-        JsonNode kakaoUserInfo = getUserResource(accessToken, kakaoResourceUri);
-        System.out.println("kakaoUserInfo = " + kakaoUserInfo);
-        String kakaoId = kakaoUserInfo.get("id").asText();
-        kakaoJwtToken(kakaoId);
-        System.out.println("token = " + kakaoJwtToken(kakaoId));
-        return kakaoId;
-    }
-
-    public String kakaoJwtToken(String kakaoId) {
-        return jwtUtil.createAccessToken(kakaoId, 1000 * 60 * 60 * 24 * 7);
-    }
-
     private JsonNode getUserResource(String accessToken, String resourceUri) {
         HttpHeaders headers = new HttpHeaders();
         headers.set("Authorization", "Bearer " + accessToken);
