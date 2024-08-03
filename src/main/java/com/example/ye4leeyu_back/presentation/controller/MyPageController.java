@@ -19,7 +19,6 @@ import java.util.List;
 @Log4j2
 @RestController
 @RequestMapping("/api")
-@CrossOrigin("*")
 @RequiredArgsConstructor
 public class MyPageController {
     private final HistoryUseCase historyUseCase;
