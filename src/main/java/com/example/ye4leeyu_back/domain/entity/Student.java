@@ -60,6 +60,7 @@ public class Student extends BaseEntity {
                 .kakaoId(kakaoId)
                 .address(from.getAddress())
                 .detailAddress(from.getDetailAddress())
+                .studentDisabilityInfoList(new ArrayList<>())
                 .build();
     }
 

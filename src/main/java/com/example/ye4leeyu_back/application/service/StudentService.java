@@ -30,4 +30,8 @@ public class StudentService {
         }
         studentRepository.save(student);
     }
+
+    public boolean isExistStudent(String kakaoId) {
+        return studentRepository.existsByKakaoId(kakaoId);
+    }
 }
