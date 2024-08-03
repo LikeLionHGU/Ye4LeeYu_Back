@@ -7,7 +7,6 @@ import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.domain.entity.Student;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 @Service
 @RequiredArgsConstructor
@@ -24,8 +23,10 @@ public class ManageStudentInfoUseCase {
 
     public String createStudent(StudentDto from, String accessToken) {
         String kakaoId = authService.getKakaoId(accessToken);
+        if (studentService.isExistStudent(kakaoId)) {
+            throw new IllegalArgumentException("Already signed up");
+        }
         studentService.createStudent(from, kakaoId);
-
         Student student = studentService.getStudentByKaKaoId(kakaoId);
         studentDisabilityInfoService.createStudentDisabilityInfo(student, from.getDisabilityTypeList(), from.getDisabilityLevelList());
         return authService.createJwtToken(kakaoId);
