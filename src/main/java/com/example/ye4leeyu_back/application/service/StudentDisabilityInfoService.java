@@ -22,11 +22,9 @@ public class StudentDisabilityInfoService {
 
     @Transactional
     public void updateStudentDisabilityInfo(Student student, List<String> disabilityTypeList, List<Integer> disabilityLevelList) {
-        List<StudentDisabilityInfo> studentDisabilityInfoList = student.getStudentDisabilityInfoList();
-        System.out.println("studentDisabilityInfoList.size() = " + studentDisabilityInfoList.size() + "kakaoId = " + student.getKakaoId());
-        for (int i = 0; i < studentDisabilityInfoList.size(); i++) {
-            StudentDisabilityInfo studentDisabilityInfo = studentDisabilityInfoList.get(i);
-            studentDisabilityInfo.updateStudentDisabilityInfo(disabilityTypeList.get(i), disabilityLevelList.get(i));
-        }
+        // 기존 정보 삭제 후 새롭게 저장
+        studentDisabilityInfoRepository.deleteAllByStudent(student);
+        studentDisabilityInfoRepository.flush();
+        createStudentDisabilityInfo(student, disabilityTypeList, disabilityLevelList);
     }
 }

@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface StudentDisabilityInfoRepository extends JpaRepository<StudentDisabilityInfo, Long> {
+    void deleteAllByStudent(Student student);
 }
