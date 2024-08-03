@@ -19,6 +19,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class CourseController {
     private final CourseSearchAndLookUseCase courseSearchAndLookUseCase;
     private final ManageCourseUseCase manageCourseUseCase;
