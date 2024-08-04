@@ -5,6 +5,8 @@ import com.example.ye4leeyu_back.application.service.AuthService;
 import com.example.ye4leeyu_back.application.service.StudentDisabilityInfoService;
 import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.domain.entity.Student;
+import com.example.ye4leeyu_back.presentation.response.ProfileResponse;
+import com.example.ye4leeyu_back.presentation.response.StudentInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -30,6 +32,11 @@ public class ManageStudentInfoUseCase {
         Student student = studentService.getStudentByKaKaoId(kakaoId);
         studentDisabilityInfoService.createStudentDisabilityInfo(student, from.getDisabilityTypeList(), from.getDisabilityLevelList());
         return authService.createJwtToken(kakaoId);
+    }
+
+    public ProfileResponse getStudentInfo(String kakaoId) {
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
+        return ProfileResponse.of(StudentDto.of(student));
     }
 
     public String getKakaoAccessToken(String code) {

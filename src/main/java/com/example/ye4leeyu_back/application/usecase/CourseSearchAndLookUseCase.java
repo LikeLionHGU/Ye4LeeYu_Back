@@ -10,6 +10,9 @@ import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.application.service.TeacherService;
 import com.example.ye4leeyu_back.domain.entity.Student;
 import com.example.ye4leeyu_back.presentation.response.*;
+import com.example.ye4leeyu_back.presentation.response.course.CourseDetailResponse;
+import com.example.ye4leeyu_back.presentation.response.course.CourseResponse;
+import com.example.ye4leeyu_back.presentation.response.course.RecommendCourseResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -72,9 +75,9 @@ public class CourseSearchAndLookUseCase {
         return RecommendCourseResponse.of(adCourseResponseList, hotCourseResponseList);
     }
 
-    public List<CourseResponse> searchCourse(String kakaoId, String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer price, Pageable pageable) {
+    public List<CourseResponse> searchCourse(String kakaoId, String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable) {
         Student student = studentService.getStudentByKaKaoId(kakaoId);
-        return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, price, pageable).stream().map(course ->
+        return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, pageable).stream().map(course ->
                 CourseResponse.of(CourseDto.of(course),
                         TeacherDto.of(teacherService.getTeacher(course.getTeacher().getId())),
                         courseService.isCourseLiked(course.getId(), student.getId()))).toList();

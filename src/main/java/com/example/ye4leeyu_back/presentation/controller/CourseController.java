@@ -5,6 +5,9 @@ import com.example.ye4leeyu_back.application.usecase.ManageCourseUseCase;
 import com.example.ye4leeyu_back.config.CustomUserDetails;
 import com.example.ye4leeyu_back.presentation.request.PageRequest;
 import com.example.ye4leeyu_back.presentation.response.*;
+import com.example.ye4leeyu_back.presentation.response.course.CourseDetailResponse;
+import com.example.ye4leeyu_back.presentation.response.course.CourseResponse;
+import com.example.ye4leeyu_back.presentation.response.course.RecommendCourseResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.http.HttpStatus;
@@ -73,7 +76,8 @@ public class CourseController {
                                                               @RequestParam(required = false) List<String> sportType,
                                                               @RequestParam(required = false) List<String> disabilityType,
                                                               @RequestParam(required = false) List<LocalDate> date,
-                                                              @RequestParam(required = false) Integer price) {
-        return ResponseEntity.ok(courseSearchAndLookUseCase.searchCourse(customUserDetails.getKakaoId(), searchWord, city, district, sportType, disabilityType, date, price, pageRequest.of()));
+                                                              @RequestParam(required = false) Integer highestPrice,
+                                                              @RequestParam(required = false) Integer lowestPrice) {
+        return ResponseEntity.ok(courseSearchAndLookUseCase.searchCourse(customUserDetails.getKakaoId(), searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, pageRequest.of()));
     }
 }

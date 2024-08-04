@@ -21,7 +21,7 @@ public class CourseRepositoryCustomImpl implements CourseRepositoryCustom {
     private final JPAQueryFactory jpaQueryFactory;
 
     @Override
-    public Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer price, Pageable pageable) {
+    public Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable) {
 
         QCourse course = QCourse.course;
         BooleanBuilder builder = new BooleanBuilder();
@@ -50,8 +50,12 @@ public class CourseRepositoryCustomImpl implements CourseRepositoryCustom {
             builder.and(isInDate(date));
         }
 
-        if(price != null) {
-            builder.and(lessThanOrEqualToPrice(price));
+        if(highestPrice != null) {
+            builder.and(lessThanOrEqualToPrice(highestPrice));
+        }
+
+        if(lowestPrice != null) {
+            builder.and(greaterThanOrEqualToPrice(lowestPrice));
         }
 
         List<Course> courseList = jpaQueryFactory
@@ -101,6 +105,10 @@ public class CourseRepositoryCustomImpl implements CourseRepositoryCustom {
 
     public BooleanExpression lessThanOrEqualToPrice(int price) {
         return QCourse.course.price.loe(price);
+    }
+
+    public BooleanExpression greaterThanOrEqualToPrice(int price) {
+        return QCourse.course.price.goe(price);
     }
 
 }

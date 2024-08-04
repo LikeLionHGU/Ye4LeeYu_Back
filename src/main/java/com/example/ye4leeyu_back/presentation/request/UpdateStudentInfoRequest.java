@@ -12,7 +12,6 @@ import java.util.List;
 public class UpdateStudentInfoRequest {
     private String nickname;
     private String description;
-    private String disabilityType;
     private List<String> disabilityTypeList;
     private List<Integer> disabilityLevelList;
     private String contactNumber;

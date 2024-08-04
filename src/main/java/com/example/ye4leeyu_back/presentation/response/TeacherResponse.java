@@ -1,6 +1,7 @@
 package com.example.ye4leeyu_back.presentation.response;
 
 import com.example.ye4leeyu_back.application.dto.TeacherDto;
+import com.example.ye4leeyu_back.presentation.response.course.CourseResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

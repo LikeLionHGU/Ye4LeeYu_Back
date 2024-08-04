@@ -5,7 +5,8 @@ import com.example.ye4leeyu_back.application.usecase.HistoryUseCase;
 import com.example.ye4leeyu_back.application.usecase.ManageStudentInfoUseCase;
 import com.example.ye4leeyu_back.config.CustomUserDetails;
 import com.example.ye4leeyu_back.presentation.request.UpdateStudentInfoRequest;
-import com.example.ye4leeyu_back.presentation.response.CourseResponse;
+import com.example.ye4leeyu_back.presentation.response.ProfileResponse;
+import com.example.ye4leeyu_back.presentation.response.course.CourseResponse;
 import com.example.ye4leeyu_back.presentation.response.HistoryResponse;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -43,5 +44,10 @@ public class MyPageController {
     public ResponseEntity<Void> updateStudentInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails, @RequestBody UpdateStudentInfoRequest request){
         manageStudentInfoUseCase.updateStudentInfo(customUserDetails.getKakaoId(), StudentDto.from(request));
         return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
+    @GetMapping("/mypage")
+    public ResponseEntity<ProfileResponse> getStudentInfo(@AuthenticationPrincipal CustomUserDetails customUserDetails){
+        return ResponseEntity.ok(manageStudentInfoUseCase.getStudentInfo(customUserDetails.getKakaoId()));
     }
 }

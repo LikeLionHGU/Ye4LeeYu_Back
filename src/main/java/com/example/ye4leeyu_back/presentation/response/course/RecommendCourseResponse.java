@@ -1,4 +1,4 @@
-package com.example.ye4leeyu_back.presentation.response;
+package com.example.ye4leeyu_back.presentation.response.course;
 
 import lombok.Builder;
 import lombok.Getter;

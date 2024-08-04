@@ -7,7 +7,7 @@ import com.example.ye4leeyu_back.application.service.StudentCourseBlockService;
 import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.application.service.TeacherService;
 import com.example.ye4leeyu_back.domain.entity.Student;
-import com.example.ye4leeyu_back.presentation.response.CourseResponse;
+import com.example.ye4leeyu_back.presentation.response.course.CourseResponse;
 import com.example.ye4leeyu_back.presentation.response.HistoryResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

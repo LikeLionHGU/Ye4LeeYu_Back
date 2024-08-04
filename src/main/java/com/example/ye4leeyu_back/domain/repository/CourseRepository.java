@@ -20,6 +20,6 @@ public interface CourseRepository extends JpaRepository<Course, Long>, CourseRep
 
     List<Course> findCourseByLocationContaining(String location);
 
-    Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer price, Pageable pageable);
+    Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable);
 
 }
