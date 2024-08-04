@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @Builder
 public class ProfileResponse {
+    private String name;
     private String nickname;
     private String description;
     private List<String> disabilityTypeList;
@@ -22,6 +23,7 @@ public class ProfileResponse {
 
     public static ProfileResponse of(StudentDto studentDto) {
         return ProfileResponse.builder()
+                .name(studentDto.getName())
                 .nickname(studentDto.getNickname())
                 .description(studentDto.getDescription())
                 .disabilityTypeList(studentDto.getDisabilityTypeList())
