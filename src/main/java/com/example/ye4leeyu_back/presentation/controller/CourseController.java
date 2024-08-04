@@ -54,13 +54,13 @@ public class CourseController {
 
     @GetMapping("/course/recommend")
     public ResponseEntity<RecommendCourseResponse> getRecommendCourse(@AuthenticationPrincipal CustomUserDetails customUserDetails) {
-
         String location = null;
+
         if(customUserDetails == null){
              location = "서울";
             return ResponseEntity.ok(courseSearchAndLookUseCase.getRecommendCourse(null, location));
         }
-        location = manageStudentInfoUseCase.getStudentInfo(customUserDetails.getKakaoId()).getAddress();
+        location = manageStudentInfoUseCase.getStudentInfo(customUserDetails.getKakaoId()).getAddress().split(" ")[0];
         return ResponseEntity.ok(courseSearchAndLookUseCase.getRecommendCourse(customUserDetails.getKakaoId(), location));
     }
 
