@@ -8,6 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import javax.swing.*;
 import javax.swing.text.html.Option;
 import java.time.LocalDate;
 import java.util.List;
@@ -20,6 +21,6 @@ public interface CourseRepository extends JpaRepository<Course, Long>, CourseRep
 
     List<Course> findCourseByLocationContaining(String location);
 
-    Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable);
+    Page<Course> findByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Boolean onlyGroup, Boolean onlyIndividual, Pageable pageable);
 
 }

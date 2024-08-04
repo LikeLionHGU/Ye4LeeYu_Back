@@ -60,8 +60,8 @@ public class CourseService {
         return courses;
     }
 
-    public List<Course> getCourseByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable) {
-        Page<Course> courses = courseRepository.findByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, pageable);
+    public List<Course> getCourseByFilters(String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Boolean onlyGroup, Boolean onlyIndividual, Pageable pageable) {
+        Page<Course> courses = courseRepository.findByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, onlyGroup, onlyIndividual, pageable);
 
         return courses.getContent();
     }

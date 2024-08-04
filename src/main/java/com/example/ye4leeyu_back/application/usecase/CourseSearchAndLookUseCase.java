@@ -30,9 +30,13 @@ public class CourseSearchAndLookUseCase {
     private final CourseBlockService courseBlockService;
 
     public CourseDetailResponse getCourseDetail(String kakaoId, Long courseId) {
-        Student student = studentService.getStudentByKaKaoId(kakaoId);
         CourseDto courseDto = CourseDto.of(courseService.getCourseAndCourseBlock(courseId));
         TeacherDto teacherDto = TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId()));
+        if (kakaoId == null) {
+            TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, false)).toList());
+            return CourseDetailResponse.of(courseDto, teacherResponse, false);
+        }
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
         boolean isLiked = courseService.isCourseLiked(courseId, student.getId());
 
         TeacherResponse teacherResponse = TeacherResponse.of(teacherDto, teacherDto.getCourseList().stream().map(dto -> CourseResponse.of(dto, teacherDto, courseService.isCourseLiked(courseId, student.getId()))).toList());
@@ -56,12 +60,27 @@ public class CourseSearchAndLookUseCase {
     }
 
     public RecommendCourseResponse getRecommendCourse(String kakaoId, String location) {
-        Student student = studentService.getStudentByKaKaoId(kakaoId);
         // 광고 강좌 가져오기
         List<CourseDto> adCourseDtoList = courseService.getAdCourseByLocation(location).stream().map(CourseDto::of).toList();
         // 추천 강좌 가져오기
         List<CourseDto> hotCourseDtoList = courseService.getHotCourseByLocation(location).stream().map(CourseDto::of).toList();
 
+        if (kakaoId == null) {
+            List<CourseResponse> adCourseResponseList = adCourseDtoList.stream().map(courseDto ->
+                    CourseResponse.of(courseDto,
+                            TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
+                            false)).toList();
+
+            List<CourseResponse> hotCourseResponseList = hotCourseDtoList.stream().map(courseDto ->
+                    CourseResponse.of(courseDto,
+                            TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
+                            false)).toList();
+
+            return RecommendCourseResponse.of(adCourseResponseList, hotCourseResponseList);
+        }
+
+        Student student = studentService.getStudentByKaKaoId(kakaoId);
+        // 광고 강좌 가져오기
         List<CourseResponse> adCourseResponseList = adCourseDtoList.stream().map(courseDto ->
                 CourseResponse.of(courseDto,
                         TeacherDto.of(teacherService.getTeacher(courseDto.getTeacherId())),
@@ -75,9 +94,15 @@ public class CourseSearchAndLookUseCase {
         return RecommendCourseResponse.of(adCourseResponseList, hotCourseResponseList);
     }
 
-    public List<CourseResponse> searchCourse(String kakaoId, String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Pageable pageable) {
+    public List<CourseResponse> searchCourse(String kakaoId, String searchWord, String city, List<String> district, List<String> sportType, List<String> disabilityType, List<LocalDate> date, Integer highestPrice, Integer lowestPrice, Boolean onlyGroup, Boolean onlyIndividual, Pageable pageable) {
+        if(kakaoId == null) {
+            return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, onlyGroup, onlyIndividual, pageable).stream().map(course ->
+                    CourseResponse.of(CourseDto.of(course),
+                            TeacherDto.of(teacherService.getTeacher(course.getTeacher().getId())),
+                            false)).toList();
+        }
         Student student = studentService.getStudentByKaKaoId(kakaoId);
-        return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, pageable).stream().map(course ->
+        return courseService.getCourseByFilters(searchWord, city, district, sportType, disabilityType, date, highestPrice, lowestPrice, onlyGroup, onlyIndividual, pageable).stream().map(course ->
                 CourseResponse.of(CourseDto.of(course),
                         TeacherDto.of(teacherService.getTeacher(course.getTeacher().getId())),
                         courseService.isCourseLiked(course.getId(), student.getId()))).toList();
