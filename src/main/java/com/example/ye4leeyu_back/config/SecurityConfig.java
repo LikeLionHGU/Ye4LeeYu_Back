@@ -36,7 +36,7 @@ public class SecurityConfig {
                         SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(request -> request
                         .requestMatchers(
-                                "api/auth/signup", "api/auth/login", "/error", "api/course", "/course/recommend"
+                                "api/auth/signup", "api/auth/login", "/error", "api/course", "/api/course/recommend"
                         )
                         .permitAll()
                 )
