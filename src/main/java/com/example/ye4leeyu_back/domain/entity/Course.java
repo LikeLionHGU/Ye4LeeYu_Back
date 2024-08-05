@@ -17,6 +17,8 @@ public class Course extends BaseEntity {
     private String title;
     private String sportType;
     private String location;
+    private double latitude;
+    private double longitude;
     private int price;
     private int maxPeople;
     private String description;

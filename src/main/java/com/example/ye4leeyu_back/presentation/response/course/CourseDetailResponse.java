@@ -24,6 +24,8 @@ public class CourseDetailResponse {
     private int likeCount;
     private boolean isLike;
     private String location;
+    private double latitude;
+    private double longitude;
     private int duration;
     private TeacherResponse teacher;
     private List<CourseBlockResponse> courseBlock;
@@ -44,6 +46,8 @@ public class CourseDetailResponse {
                 .likeCount(courseDto.getLikeCount())
                 .isLike(isLike)
                 .location(courseDto.getLocation())
+                .latitude(courseDto.getLatitude())
+                .longitude(courseDto.getLongitude())
                 .duration(courseDto.getDuration())
                 .teacher(teacherResponse)
                 .courseBlock(courseDto.getCourseBlockList()
