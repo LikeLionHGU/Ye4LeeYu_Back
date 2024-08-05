@@ -13,7 +13,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addMapping("/**")
                 .allowedOrigins("https://pickle-pickle.netlify.app", "http://localhost:3000")
                 .allowedHeaders("*")
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTION")
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTION", "PATCH")
                 .allowCredentials(true)
                 .maxAge(3000L);
     }
