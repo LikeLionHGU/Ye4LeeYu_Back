@@ -12,6 +12,10 @@ import java.util.List;
 @Builder
 public class ProfileResponse {
     private String name;
+    private int bornYear;
+    private int bornMonth;
+    private int bornDay;
+    private boolean sex;
     private String nickname;
     private String description;
     private List<String> disabilityTypeList;
@@ -24,6 +28,10 @@ public class ProfileResponse {
     public static ProfileResponse of(StudentDto studentDto) {
         return ProfileResponse.builder()
                 .name(studentDto.getName())
+                .bornYear(studentDto.getBornYear())
+                .bornMonth(studentDto.getBornMonth())
+                .bornDay(studentDto.getBornDay())
+                .sex(studentDto.isSex())
                 .nickname(studentDto.getNickname())
                 .description(studentDto.getDescription())
                 .disabilityTypeList(studentDto.getDisabilityTypeList())

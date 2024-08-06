@@ -17,6 +17,8 @@ public class CourseDto {
     private String title;
     private String sportType;
     private String location;
+    private double latitude;
+    private double longitude;
     private String possibleDisabilityType;
     private int price;
     private int maxPeople;
@@ -36,6 +38,8 @@ public class CourseDto {
                 .title(course.getTitle())
                 .sportType(course.getSportType())
                 .location(course.getLocation())
+                .latitude(course.getLatitude())
+                .longitude(course.getLongitude())
                 .price(course.getPrice())
                 .maxPeople(course.getMaxPeople())
                 .description(course.getDescription())
