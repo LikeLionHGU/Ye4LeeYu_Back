@@ -6,7 +6,6 @@ import com.example.ye4leeyu_back.application.service.StudentDisabilityInfoServic
 import com.example.ye4leeyu_back.application.service.StudentService;
 import com.example.ye4leeyu_back.domain.entity.Student;
 import com.example.ye4leeyu_back.presentation.response.ProfileResponse;
-import com.example.ye4leeyu_back.presentation.response.StudentInfoResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -43,8 +42,15 @@ public class ManageStudentInfoUseCase {
         return authService.getKakaoAccessToken(code);
     }
 
-    public String getJwtToken(String code) {
-        String kakaoId = authService.getKakaoId(getKakaoAccessToken(code));
+    public String getJwtTokenByKaKaoId(String kakaoId){
         return authService.createJwtToken(kakaoId);
+    }
+
+    public boolean isExistStudent(String kakaoId) {
+        return studentService.isExistStudent(kakaoId);
+    }
+
+    public String getKakaoId(String accessToken) {
+        return authService.getKakaoId(accessToken);
     }
 }
