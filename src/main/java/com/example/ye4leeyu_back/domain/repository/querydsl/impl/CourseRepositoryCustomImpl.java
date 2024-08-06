@@ -97,7 +97,7 @@ public class CourseRepositoryCustomImpl implements CourseRepositoryCustom {
             result = result.or(QCourse.course.location.contains(districtName));
         }
 
-        return QCourse.course.location.in(district);
+        return result;
     }
 
     public BooleanExpression isInSportType(List<String> sportType) {
