@@ -15,8 +15,8 @@ import java.time.LocalDate;
 public class CourseBlockDto {
     private Long id;
     private LocalDate date;
-    private int takenHour;
-    private int takenMinute;
+    private int startHour;
+    private int startMinute;
     private boolean isOpen;
     private int CurrentRegisterCount;
     private Long courseId;
@@ -25,8 +25,8 @@ public class CourseBlockDto {
         return CourseBlockDto.builder()
                 .id(courseBlock.getId())
                 .date(courseBlock.getDate())
-                .takenHour(courseBlock.getTakenHour())
-                .takenMinute(courseBlock.getTakenMinute())
+                .startHour(courseBlock.getStartHour())
+                .startMinute(courseBlock.getStartMinute())
                 .isOpen(courseBlock.isOpen())
                 .CurrentRegisterCount(courseBlock.getCurrentRegisterCount())
                 .courseId(courseBlock.getCourse().getId())

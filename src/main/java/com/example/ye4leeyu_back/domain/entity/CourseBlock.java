@@ -18,8 +18,8 @@ public class CourseBlock extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private LocalDate date;
-    private int takenHour;
-    private int takenMinute;
+    private int startHour;
+    private int startMinute;
     private boolean isOpen;
     private int CurrentRegisterCount;
 

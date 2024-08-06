@@ -22,8 +22,8 @@ public class CourseBlockResponse {
         return CourseBlockResponse.builder()
                 .id(courseBlockDto.getId())
                 .date(courseBlockDto.getDate())
-                .takenHour(courseBlockDto.getTakenHour())
-                .takenMinute(courseBlockDto.getTakenMinute())
+                .takenHour(courseBlockDto.getStartHour())
+                .takenMinute(courseBlockDto.getStartMinute())
                 .isOpen(courseBlockDto.isOpen())
                 .currentRegisterCount(courseBlockDto.getCurrentRegisterCount())
                 .build();
