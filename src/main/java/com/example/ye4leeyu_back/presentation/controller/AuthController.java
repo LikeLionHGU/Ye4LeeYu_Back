@@ -26,6 +26,7 @@ public class AuthController {
     @GetMapping("/auth/login")
     public ResponseEntity<LoginTokenResponse> login(@RequestParam String code) {
         String JwtToken = manageStudentInfoUseCase.getJwtToken(code);
+        manageStudentInfoUseCase.isExistStudent(code);
         return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
     }
 }

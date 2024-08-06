@@ -47,4 +47,11 @@ public class ManageStudentInfoUseCase {
         String kakaoId = authService.getKakaoId(getKakaoAccessToken(code));
         return authService.createJwtToken(kakaoId);
     }
+
+    public void isExistStudent(String code) {
+        String kakaoId = authService.getKakaoId(getKakaoAccessToken(code));
+        if (!studentService.isExistStudent(kakaoId)) {
+            throw new IllegalArgumentException("Not signed up");
+        }
+    }
 }
