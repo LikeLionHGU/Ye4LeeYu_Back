@@ -25,11 +25,16 @@ public class AuthController {
 
     @GetMapping("/auth/login")
     public ResponseEntity<LoginTokenResponse> login(@RequestParam String code) {
-        String JwtToken = manageStudentInfoUseCase.getJwtToken(code);
-        boolean isExist = manageStudentInfoUseCase.isExistStudent(code);
-        if (!isExist) {
+        String accessToken = manageStudentInfoUseCase.getKakaoAccessToken(code);
+        String kakaoId = manageStudentInfoUseCase.getKakaoId(accessToken);
+        boolean isExist = manageStudentInfoUseCase.isExistStudent(kakaoId);
+
+        if(isExist){
+            String jwtToken = manageStudentInfoUseCase.getJwtTokenByKaKaoId(kakaoId);
+            return ResponseEntity.ok(LoginTokenResponse.of(jwtToken));
+        }
+        else{
             throw new IllegalArgumentException("Not signed up");
         }
-        return ResponseEntity.ok(LoginTokenResponse.of(JwtToken));
     }
 }
